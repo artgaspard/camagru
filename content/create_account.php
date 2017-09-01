@@ -14,3 +14,7 @@
 	<script src="create_account.js" type="text/javascript"></script>
 	</body>
 </html>
+
+<?php
+include("../control/create_account_control.php")
+?>
