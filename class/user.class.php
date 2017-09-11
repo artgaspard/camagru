@@ -50,7 +50,28 @@ class User
 
 	public function Check_password($db)
 	{
+		$sql = "SELECT password FROM Users WHERE login = :login AND password = :password";
+		$statement = $db->prepare($sql);
+		$statement->bindValue('login', $this->login);
+		$statement->bindValue('password', $this->password);
+		$statement->execute();
+		$count = count($statement->fetchAll());
+		if ($count > 0)
+			return false;
+		return true;
+	}
 
+	public function Check_status($db)
+	{
+		$sql = "SELECT status FROM Users WHERE login = :login";
+		$statement = $db->prepare($sql);
+		$statement->bindValue('login', $this->login);
+		$statement->execute();
+		$row = $statement->fetch();
+		$stat = $row['status'];
+		if ($stat == 1)
+			return false;
+		return true;
 	}
 }
 ?>

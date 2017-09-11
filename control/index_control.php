@@ -1,24 +1,37 @@
 <?php
-
-require '/../config/setup.php';
-require '/../class/user.class.php';
+require("class/user.class.php");
 
 $login = trim($_POST['login']);
 $password = trim($_POST['password']);
 
 if (isset($_POST['submit']))
 {
-	if (!(empty($login) && !(empty($password)))
+	if (!(empty($login)) && !(empty($password)))
 	{
 		try
 		{
+			$db = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
+			$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			$db->exec("USE camagrudb");
+
 			$password = hash('whirlpool', $password);
-			$data = array('login' => $login, 'password' => $password)
+			$data = array('login' => $login, 'password' => $password);
 			$user = new User($data);
-			if ($user->Check_login($db) == true)
+			
+			if ($user->Check_login($db) == false)
 			{
-				echo "username exists";
-				//if (check password)
+				if ($user->Check_password($db) == false)
+				{
+					if ($user->Check_status($db) == false)
+					{
+						$_SESSION['connect'] = 1;
+						echo "You are now logged in Camagru";
+					}
+					else
+						echo "Your account isn't activated, please check your mailbox and click on the confirmation link";
+				}
+				else
+					echo "Wrong password";
 			}
 			else
 				echo "This username doesn't exist";
@@ -26,8 +39,38 @@ if (isset($_POST['submit']))
 		catch(PDOException $e) {
 			echo "index_control - login failed " . $e->getMessage();
 		}
+//	$connect = $_SESSION['connect'];
+//	echo " connection = $connect";
 	}
 	else
 		echo "You must enter a login and a password";
+}
+
+else if (isset($_POST['newpw']))
+{
+	$email = trim($_POST['emailpw']);
+	if (!(empty($email)))
+	{
+		try
+		{
+			$db = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
+			$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMOE_EXCEPTION);
+			$db->exec("USE camagrudb");
+
+			$data = array('email' => $email);
+			$user = new User($data);
+			if ($user->Check_email($db) == false)
+			{
+				//send email
+			}
+			else
+				echo "Unknown email address";
+		}
+		catch(PDOException $e) {
+			echo "index_control - new password failed " . $e->getMessage();
+		}
+	}
+	else
+		echo "You must enter an email address";
 }
 ?>
