@@ -28,10 +28,12 @@ if (!isset($_SESSION))
 		</br>
 		Forgot your password ?
 		</br>
+		<form action="index.php" method="POST">
 		<input type="email" name="emailpw" placeholder="Email">
 		</br>
 		<button type="submit" name="newpw" class="pure-button pure-button-primary">Send new password</button>
 		</br>
+		</form>
 		</br>
 	</body>
 	<footer>

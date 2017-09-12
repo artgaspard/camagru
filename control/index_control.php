@@ -54,14 +54,21 @@ else if (isset($_POST['newpw']))
 		try
 		{
 			$db = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
-			$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMOE_EXCEPTION);
+			$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			$db->exec("USE camagrudb");
 
 			$data = array('email' => $email);
 			$user = new User($data);
 			if ($user->Check_email($db) == false)
 			{
-				//send email
+				$user->Get_data_email($db);
+				$login = $user->login;
+				$crypt = $user->crypt;
+
+				$url = "http://".$_SERVER['HTTP_HOST']."/camagru/git/content/reset_password.php".'?login='.urlencode($login).'&crypt='.urlencode($crypt);
+				$msg = "Clic on the following link to change your Camagru password: ".$url;
+				mail($email, 'Change your Camagru password', $msg, "From: noreply@camagru.fr");
+				echo "A link has been sent to your email address. ";
 			}
 			else
 				echo "Unknown email address";

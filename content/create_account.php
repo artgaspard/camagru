@@ -11,7 +11,7 @@
 		</br>
 		<button type="submit" class="pure-button pure-button-primary">Submit</button>
 		</form>
-	<script src="create_account.js" type="text/javascript"></script>
+	<script src="password_match.js" type="text/javascript"></script>
 	</body>
 </html>
 

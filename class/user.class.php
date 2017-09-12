@@ -73,5 +73,19 @@ class User
 			return false;
 		return true;
 	}
+
+	public function Get_data_email($db)
+	{
+		$sql = "SELECT login, password, crypt, status FROM Users WHERE email = :email";
+		$statement = $db->prepare($sql);
+		$statement->bindValue('email', $this->email);
+		$statement->execute();
+		$data = $statement->fetchAll();
+		$res = $data[0];
+		$this->login = $res['login'];
+		$this->password = $res['password'];
+		$this->crypt = $res['crypt'];
+		$this->status = $res['status'];
+	}
 }
 ?>
