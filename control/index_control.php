@@ -6,6 +6,8 @@ $password = trim($_POST['password']);
 
 if (isset($_POST['submit']))
 {
+	if ($_SESSION['connect'] == 0)
+	{
 	if (!(empty($login)) && !(empty($password)))
 	{
 		try
@@ -44,6 +46,9 @@ if (isset($_POST['submit']))
 	}
 	else
 		echo "You must enter a login and a password";
+	}
+	else
+		echo "You are already logged in";
 }
 
 else if (isset($_POST['newpw']))

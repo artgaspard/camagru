@@ -1,3 +1,6 @@
+<?php
+include ("header.php");
+?>
 <html>
 	<body>
 		<form action="create_account.php" method="POST">
