@@ -1,9 +1,6 @@
 <?php
 if (!isset($_SESSION))
-{
 	session_start();
-//	$_SESSION['connect'] = 0;
-}
 include("content/header.php");
 ?>
 <html>

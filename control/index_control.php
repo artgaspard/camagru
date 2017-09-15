@@ -8,44 +8,42 @@ if (isset($_POST['submit']))
 {
 	if ($_SESSION['connect'] == 0)
 	{
-	if (!(empty($login)) && !(empty($password)))
-	{
-		try
+		if (!(empty($login)) && !(empty($password)))
 		{
-			$db = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
-			$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-			$db->exec("USE camagrudb");
-
-			$password = hash('whirlpool', $password);
-			$data = array('login' => $login, 'password' => $password);
-			$user = new User($data);
-			
-			if ($user->Check_login($db) == false)
+			try
 			{
-				if ($user->Check_password($db) == false)
+				$db = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
+				$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+				$db->exec("USE camagrudb");
+
+				$password = hash('whirlpool', $password);
+				$data = array('login' => $login, 'password' => $password);
+				$user = new User($data);
+			
+				if ($user->Check_login($db) == false)
 				{
-					if ($user->Check_status($db) == false)
+					if ($user->Check_password($db) == false)
 					{
-						$_SESSION['connect'] = 1;
-						echo "You are now logged in Camagru";
+						if ($user->Check_status($db) == false)
+						{
+							$_SESSION['connect'] = 1;
+							echo "<meta http-equiv='refresh' content='0'>";
+						}
+						else
+							echo "Your account isn't activated, please check your mailbox and click on the confirmation link";
 					}
 					else
-						echo "Your account isn't activated, please check your mailbox and click on the confirmation link";
+						echo "Wrong password";
 				}
 				else
-					echo "Wrong password";
+					echo "This username doesn't exist";
 			}
-			else
-				echo "This username doesn't exist";
+			catch(PDOException $e) {
+				echo "index_control - login failed " . $e->getMessage();
+			}
 		}
-		catch(PDOException $e) {
-			echo "index_control - login failed " . $e->getMessage();
-		}
-//	$connect = $_SESSION['connect'];
-//	echo " connection = $connect";
-	}
-	else
-		echo "You must enter a login and a password";
+		else
+			echo "You must enter a login and a password";
 	}
 	else
 		echo "You are already logged in";
