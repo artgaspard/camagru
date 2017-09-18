@@ -1,7 +1,7 @@
 <?php
 if (!isset($_SESSION))
 	session_start();
-include("content/header.php");
+include("content/header_index.php");
 ?>
 <html>
 	<head>
@@ -11,6 +11,22 @@ include("content/header.php");
 	<body>
 		</br>
 		WELCOME TO CAMAGRU
+		</br>
+		</br>
+		<button type='button'>
+<?php
+if ($_SESSION['connect'] == 1) {
+	$link = "content/edit_pics.php";
+}
+else {
+	$link = "index.php";
+	$message = "You must be logged-in to use Camagru";
+}
+?>
+		<a href='<?php echo "$link";?>'>Use Camagru now !</a></button>
+<?php
+echo " $message";
+?>
 		</br>
 		</br>
 		<form action="index.php" method="POST">
