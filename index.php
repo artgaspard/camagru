@@ -7,6 +7,7 @@ include("content/header_index.php");
 	<head>
 		<meta charset="UTF-8">
 		<title>camagru</title>
+		<link rel="stylesheet" href="css/stylesheet.css">
 	</head>
 	<body>
 		</br>
