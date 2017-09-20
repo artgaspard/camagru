@@ -19,6 +19,15 @@ try {
 		PRIMARY KEY (id)
 		)";
 	$db->exec($sql);
+
+	$sql = "CREATE TABLE IF NOT EXISTS Images (
+		id int AUTO_INCREMENT NOT NULL,
+		user_login VARCHAR(60) NOT NULL,
+		image_name VARCHAR(255) NOT NULL,
+		date datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+		PRIMARY KEY (id)
+		)";
+	$db->exec($sql);
 }
 
 catch(PDOException $e) {

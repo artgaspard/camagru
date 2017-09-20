@@ -15,7 +15,7 @@ include("header.php");
 <link rel="stylesheet" href="../css/stylesheet.css">
 </head>
 <body>
-	EDIT PICTURES
+	<p>EDIT PICTURES</p>
 	</br>
 	<div class="main">
 		<div id="container">
@@ -27,10 +27,17 @@ include("header.php");
 		</br>
 		</br>
 		<canvas id="canvas" width="640" height="480" style="border:1px solid #333;"></canvas>
+		</br>
+			<div class="filters">
+				<p id="filters_title">Add a filter to your picture</p>
+				</br>
+				<img id="metal" src="../filters/metal_frame.png" width="320px" height="240px"></img>
+				</br>
+			</div>
 	</div>
 
-
 <script type="text/javascript">
+// display webcam
 var video = document.querySelector("#videoElement");
 			
 navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia;
@@ -51,9 +58,29 @@ var canvas = document.getElementById('canvas');
 var context = canvas.getContext('2d');
 var video = document.getElementById('videoElement');
 
-document.getElementById('snap').addEventListener('click', function(e) {
+//allow to take picture and save it
+document.getElementById('snap').addEventListener('click', takePhoto, true);
+
+function takePhoto () {
 	context.drawImage(video, 0, 0, 640, 480);
-});
+
+	var saveButton = document.createElement('button');
+	saveButton.id = 'save';
+	saveButton.innerText = 'Save Picture';
+	saveButton.addEventListener('click', savePhoto, true);
+	document.body.appendChild(saveButton);
+}
+
+function savePhoto () {
+	var data = canvas.toDataURL("image/png");
+
+	data = data.replace("image/png", "image/octet-stream");
+<?php
+
+?>
+	document.location.href = data;
+}
+
 </script>
 </body>
 </html>
