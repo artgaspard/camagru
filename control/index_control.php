@@ -27,6 +27,7 @@ if (isset($_POST['submit']))
 						if ($user->Check_status($db) == false)
 						{
 							$_SESSION['connect'] = 1;
+							$_SESSION['login'] = $login;
 							echo "<meta http-equiv='refresh' content='0'>";
 						}
 						else
