@@ -1,7 +1,7 @@
 <?php
 if (!isset($_SESSION))
 	session_start();
-include("content/header_index.php");
+include("view/header_index.php");
 ?>
 <html>
 	<head>
@@ -17,7 +17,7 @@ include("content/header_index.php");
 		<button type='button'>
 <?php
 if ($_SESSION['connect'] == 1) {
-	$link = "content/edit_pics.php";
+	$link = "view/edit_pics.php";
 }
 else {
 	$link = "index.php";
@@ -38,7 +38,7 @@ echo " $message";
 		<button type="submit" name="submit" class="pure-button pure-button-primary">Submit</button>
 		</br>
 		</form>
-		Not a member ? <a href="./content/create_account.php">SIGN UP</a>
+		Not a member ? <a href="./view/create_account.php">SIGN UP</a>
 		</br>
 		</br>
 		Forgot your password ?
@@ -57,5 +57,5 @@ echo " $message";
 
 <?php
 require("config/setup.php");
-include("control/index_control.php");
+include("controler/index_control.php");
 ?>
