@@ -30,18 +30,19 @@ include("header.php");
 		</div>
 		</br>
 		<div class="filters">
-			<p id="filters_title">Add a filter to your picture</p>
+			<p id="filters_title">Add a filter to your picture:</p>
 			</br>
 			<img id="metal" src="../filters/metal_frame.png" width="320px" height="240px"></img>
 			</br>
+			</br>
+			<img id="orange" src="../filters/orange_frame.png" width="320px" height="240px"></img>
 		</div>
 	</div>
-
 <script type="text/javascript">
-// display webcam
+
+//dispaly webcam
 var video = document.querySelector("#videoElement");
-var filter = document.querySelector("#metal");
-			
+
 navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia;
 
 if (navigator.getUserMedia) {
@@ -58,43 +59,29 @@ function videoError(e) {
 
 var canvas = document.getElementById('canvas');
 var context = canvas.getContext('2d');
-var video = document.getElementById('videoElement');
+var video = document.getElementById('videoElement');  
 
-//allow to take picture and save it
-document.getElementById('snap').addEventListener('click', takePhoto, true);
-function takePhoto () {
+//take picture
+var picture = document.getElementById('snap');
+
+picture.addEventListener('click', function () {
 	context.drawImage(video, 0, 0, 640, 480);
+});
 
-	var saveButton = document.createElement('button');
-	saveButton.id = 'save';
-	saveButton.innerText = 'Save Picture';
-	saveButton.addEventListener('click', savePhoto, true);
-	document.body.appendChild(saveButton);
-}
+//select filter
+var metal = document.getElementById('metal');
+var orange = document.getElementById('orange');
 
-document.getElementById('metal').addEventListener('click', selectFilter, true);
-function selectFilter () {
-	context.drawImage(filter, 0, 0, 640, 480);
-}
+metal.addEventListener('click', function () {
+	context.drawImage(metal, 0, 0, 640, 480);
+});
 
-function savePhoto () {
-	var image_canvas = canvas.toDataURL("image/png");
+orange.addEventListener('click', function () {
+	context.drawImage(orange, 0, 0, 640, 480);
+});
 
-	var xhr = new XMLHttpRequest();
-	xhr.open('POST', '../controler/edit_pics_control.php', true);
-	xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-	xhr.onreadystatechange = function() {
-		if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
-			console.log(xhr.responseText);
-		}
-	};
-	var image_final = 'image_canvas='+image_canvas;
-	console.log(image_final);
-	xhr.send(image_final);
-}
-//	var data = canvas.toDataURL("image/png");
-//	data = data.replace("image/png", "image/octet-stream");
-//	document.location.href = data;
+
+
 </script>
 </body>
 </html>
