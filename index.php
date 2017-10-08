@@ -1,4 +1,15 @@
 <?php
+require("router.php");
+
+$router = new Router();
+
+$router->add('', ['controller' => 'controler', 'action' => 'index_control']);
+$router->add('{controller}/{action}');
+$router->add('{controller}/{id:\d+}/{action}');
+
+$router->dispatch($_SERVER['QUERY_STRING']);
+
+
 if (!isset($_SESSION))
 	session_start();
 include("view/header_index.php");
