@@ -1,11 +1,10 @@
-<body>
-	<div class="header">
-	<a href="index.php" title="Go back to homepage">HOME</a>
-	</div>
+
+<div class="header">
+<h2><a style="color:white" href="index.php">HOME</a></h2>
 <?php
 if ($_SESSION['connect'] == 1)
 {
-	echo "<form action='' method='POST'><button id='disconnect' name='disconnect'>Disconnect</button></form>";
+	echo "<form action='' method='POST'><button id='disconnect' name='disconnect' style='float:right;margin-top:-45px;font-size:20px;'>Disconnect</button></form>";
 	if (isset($_POST['disconnect']))
 	{
 		$_SESSION['connect'] = 0;
@@ -16,3 +15,4 @@ if ($_SESSION['connect'] == 1)
 else
 	$_SESSION['connect'] = 0;
 ?>
+</div>

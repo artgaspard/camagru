@@ -1,46 +1,41 @@
 <?php
-require("router.php");
-
-$router = new Router();
-
-$router->add('', ['controller' => 'controler', 'action' => 'index_control']);
-$router->add('{controller}/{action}');
-$router->add('{controller}/{id:\d+}/{action}');
-
-$router->dispatch($_SERVER['QUERY_STRING']);
-
-
 if (!isset($_SESSION))
 	session_start();
-include("view/header_index.php");
 ?>
 <html>
-	<head>
-		<meta charset="UTF-8">
-		<title>camagru</title>
-		<link rel="stylesheet" href="css/stylesheet.css">
-	</head>
-	<body>
-		</br>
-		WELCOME TO CAMAGRU
-		</br>
-		</br>
-		<button type='button'>
+<head>
+	<meta charset="UTF-8">
+	<title>camagru</title>
+	<link rel="stylesheet" type="text/css" href="css/stylesheet.css">
+</head>
+<body>
+<?php
+include("view/header_index.php");
+?>
+	</br>
+	<div id="title">
+	<h1>WELCOME TO CAMAGRU</h1>
+	</div>
+	</br>
+	</br>
+	<div id="use_button">
+	<button type='button'>
 <?php
 if ($_SESSION['connect'] == 1) {
-	$link = "view/edit_pics.php";
+	$link = "view/edit_pics_2.php";
 }
 else {
 	$link = "index.php";
 	$message = "You must be logged-in to use Camagru";
 }
 ?>
-		<a href='<?php echo "$link";?>'>Use Camagru now !</a></button>
+	<a style='font-size:30px;' href='<?php echo "$link";?>'>Use Camagru now !</a></button>
+	</div>
 <?php
-echo " $message";
+echo "</br></br><p style='text-align:center'>$message</p>";
 ?>
 		</br>
-		</br>
+	<div class="body">
 		<form action="index.php" method="POST">
 		<input type="text" name="login" placeholder="Login" value="" required/>
 		<br/>
@@ -61,6 +56,7 @@ echo " $message";
 		</br>
 		</form>
 		</br>
+	</div>
 	</body>
 	<footer>
 	</footer>

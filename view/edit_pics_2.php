@@ -15,15 +15,12 @@ include("header.php");
 <link rel="stylesheet" href="../css/stylesheet.css">
 </head>
 <body>
-	<p>EDIT PICTURES</p>
-	</br>
 	<div class="main">
 		<div id="container">
 			<video autoplay="true" id="videoElement">
 			</video>
 		</div>
-		<button id="snap">Take picture</button>
-		</br>
+		<button id='snap'>Take picture</button>
 		</br>
 		<div class="canvas">
 			<canvas id="canvas" width="640" height="480" style="border:1px solid #333;"></canvas>
@@ -31,7 +28,6 @@ include("header.php");
 		</br>
 		<div class="filters">
 			<p id="filters_title">Add a filter to your picture:</p>
-			</br>
 			<img id="metal" src="../filters/metal_frame.png" width="320px" height="240px"></img>
 			</br>
 			</br>
@@ -57,30 +53,53 @@ function videoError(e) {
 	alert("Can't connect with webcam");
 }
 
+//take picture
 var canvas = document.getElementById('canvas');
 var context = canvas.getContext('2d');
 var video = document.getElementById('videoElement');  
+document.getElementById('snap').addEventListener('click', takePicture, true);
 
-//take picture
-var picture = document.getElementById('snap');
-
-picture.addEventListener('click', function () {
-	context.drawImage(video, 0, 0, 640, 480);
-});
+function takePicture () {
+	if (select == 1 || select == 2) {
+		context.drawImage(video, 0, 0, 640, 480);
+		if (select == 1) {
+			context.drawImage(metal, 0, 0, 640, 480);
+		}
+		else if (select == 2) {
+			context.drawImage(orange, 0, 0, 640, 480);
+		}
+	}
+	else {
+		alert('You must select a filter before taking a picture :)');
+	}
+}
 
 //select filter
 var metal = document.getElementById('metal');
 var orange = document.getElementById('orange');
+var select = 0;
 
 metal.addEventListener('click', function () {
-	context.drawImage(metal, 0, 0, 640, 480);
+	if (select == 0) {
+		context.drawImage(metal, 0, 0, 640, 480);
+		select = 1;
+	}
+	else {
+		context.clearRect(0, 0, 640, 480);
+		select = 0;
+	}
 });
 
 orange.addEventListener('click', function () {
-	context.drawImage(orange, 0, 0, 640, 480);
+	if (select == 0) {
+		context.drawImage(orange, 0, 0, 640, 480);
+		select = 2;
+	}
+	else {
+		context.clearRect(0, 0, 640, 480);
+		select = 0;
+	}
 });
-
-
 
 </script>
 </body>

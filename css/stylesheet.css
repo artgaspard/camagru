@@ -1,3 +1,21 @@
+#use_button {
+	margin: 0px 0px 0px 500px;
+}
+
+#title {
+	text-align: center;
+	color: Gray;
+}
+
+.header {
+	background-color: Gray;
+	padding: 12px 28px;
+}
+
+.body {
+	text-align: center;
+	font-size: 150%;
+}
 
 #container {
 	margin: 30px 50px;
@@ -12,15 +30,25 @@
 	background-color: #666;
 }
 
+#snap {
+	margin: -10px 0px 20px 300px;
+	font-size: 20px;
+}
+
+.canvas {
+	margin: 10px 55px;
+}
+
 .filters {
 	position: absolute;
 	width: 320px;
 	height: 240px;
-	top: 100px;
+	top: 670px;
 	right: 120px;
+	text-align: center;
+	font-size: 130%;
 }
 
 #overlay {
 	display: none;
-	
 }
