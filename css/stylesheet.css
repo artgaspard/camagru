@@ -31,22 +31,44 @@
 }
 
 #snap {
-	margin: -10px 0px 20px 300px;
+	margin: -20px 0px 20px 320px;
 	font-size: 20px;
 }
 
 .canvas {
-	margin: 10px 55px;
-}
-
-.filters {
 	position: absolute;
-	width: 320px;
-	height: 240px;
-	top: 670px;
-	right: 120px;
+	margin: -595px 830px;
 	text-align: center;
 	font-size: 130%;
+}
+
+#metal {
+	position: absolute;
+	top: 750px;
+	left: 60px;
+}
+
+#orange {
+	position: absolute;
+	top: 750px;
+	left: 230px;
+}
+
+#filters_title {
+	position: absolute;
+	top: 685px;
+	left: 270px;
+	font-size: 130%;
+}
+
+.picture_fil {
+	position: absolute;
+}
+
+#download {
+	position: absolute;
+	top: 420px;
+	right: 225px;
 }
 
 #overlay {
