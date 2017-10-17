@@ -38,6 +38,7 @@ include("header.php");
 			<img id="metal2" src="../filters/metal_frame.png" width="640px" height="480px" style="margin: -615px 60px; z-index:1"></img>
 			<img id="orange2" src="../filters/orange_frame.png" width="640px" height="480px" style="margin: -615px 60px;"></img>
 		</div>
+		<button id='download'>Download</button>
 <script type="text/javascript">
 
 //dispaly webcam
@@ -62,6 +63,9 @@ var canvas = document.getElementById('canvas');
 var context = canvas.getContext('2d');
 var video = document.getElementById('videoElement');  
 document.getElementById('snap').addEventListener('click', takePicture, true);
+
+var dlButton = document.getElementById('download');
+dlButton.style.visibility = 'hidden';
 
 function takePicture () {
 	context.clearRect(0, 0, 320, 240);
@@ -89,25 +93,17 @@ function takePicture () {
 	xhr.open('POST', '../controler/edit_pics_control.php', true);
 	xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 	xhr.onreadystatechange = function() {
-		if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
-			console.log(xhr.responseText);
+		if (this.readyState == 4 && (this.status == 200 || this.status == 0)) {
+			console.log(this.responseText);
 		}
 	};
 	var image_final = 'image_canvas='+image_canvas+'&image_incrust='+incrust.src;
 	console.log(image_final);
 	xhr.send(image_final);
 
-//create download button
-	if (dlButton) {
-		document.body.removeChild(dlButton);
-	}
-	else {
-	var dlButton = document.createElement('button');
-	dlButton.id = 'download';
-	dlButton.innerText = 'Download Picture';
+//show download button
 	dlButton.addEventListener('click', dlPhoto, true);
-	document.body.appendChild(dlButton);
-	}
+	dlButton.style.visibility = 'visible';
 }
 
 //download picture
@@ -158,5 +154,15 @@ orange.addEventListener('click', function () {
 });
 
 </script>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+<?php
+include('../controler/display_edit_pics.php');
+?>
 </body>
 </html>

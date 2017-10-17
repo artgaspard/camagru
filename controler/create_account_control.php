@@ -21,9 +21,9 @@ if (!(empty($login)) || !(empty($password)) || !(empty($email)))
 
 		$user = new User($data);
 		if ($user->Check_login($db) == false)
-			echo "Username already exists";
+			echo "<p style='text-align:center;font-size:130%;'>Username already exists</p>";
 		else if ($user->Check_email($db) == false)
-			echo "Email already exists";
+			echo "<p style='text-align:center;font-size:130%;'>Email already exists</p>";
 		else
 		{
 			$sql = "INSERT INTO Users (login, password, email, crypt, status) VALUES (:login, :password, :email, :crypt, :status)";
@@ -40,7 +40,7 @@ if (!(empty($login)) || !(empty($password)) || !(empty($email)))
 			$url = "http://".$_SERVER['HTTP_HOST']."/camagru/view/account_validation.php".'?login='.urlencode($login).'&crypt='.urlencode($crypt);
 			$msg = "Clic on the following link to confirm your subscription to Camagru: ".$url;
 			mail($email, 'Activate your Camagru account', $msg, "From: noreply@camagru.fr");
-			echo "Thanks for subscribing to Camagru, a confirmation link has been sent to your email address. ";
+			echo "<p style='text-align:center;font-size:130%;'>Thanks for subscribing to Camagru, a confirmation link has been sent to your email address.</p>";
 		}
 	}
 

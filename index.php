@@ -26,7 +26,7 @@ if ($_SESSION['connect'] == 1) {
 }
 else {
 	$link = "index.php";
-	$message = "You must be logged-in to use Camagru";
+	$message = "<p style='text-align:center;font-size:120%;'>You must be logged-in to use Camagru</p>";
 }
 ?>
 	<a style='font-size:30px;' href='<?php echo "$link";?>'>Use Camagru now !</a></button>
@@ -55,7 +55,6 @@ echo "</br></br><p style='text-align:center'>$message</p>";
 		<button type="submit" name="newpw" class="pure-button pure-button-primary">Send new password</button>
 		</br>
 		</form>
-		</br>
 	</div>
 	</body>
 	<footer>

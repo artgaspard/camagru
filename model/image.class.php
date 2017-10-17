@@ -1,6 +1,5 @@
 <?php
 session_start();
-require ("../config/database.php");
 
 class Image
 {
@@ -18,27 +17,28 @@ class Image
 		}
 	}
 
-	public function imageDB()
+	public function imageDB($db)
 	{
-		try {
-			$db = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
-			$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-			$db->exec("USE camagrudb");
+		$user_login = $this->user_login;
+		$image_name = $this->image_name;	
+		
+		$statement = $db->prepare("INSERT INTO Images (user_login, image_name) VALUES (:user_login, :image_name)");
+		$statement->bindParam(':user_login', $user_login);
+		$statement->bindParam(':image_name', $image_name);
+		$statement->execute();
 	
-			$statement = $db->prepare("INSERT INTO Images (user_login, image_name) VALUES (:user_login, :image_name)");
-		echo 'TEST';
-			$statement->bindValue(':user_login', $user_login);
-			$statement->bindValue(':image_name', $image_name);
-			$statement->execute();
-	
-			echo "Picture saved";
-			return true;
-		}
-		catch(PDOException $e) {
-			echo "model - image.class : image insertion fail " . $e->getMessage();
-			return false;
-		}
+		echo "Picture saved";
+	}
 
+	public function userPics($db)
+	{
+		$user_login = $this->user_login;
+
+		$statement = $db->prepare("SELECT image_name, user_login FROM Images WHERE user_login = :user_login ORDER BY date DESC");
+		$statement->bindParam(':user_login', $user_login);
+		$statement->execute();
+		$res = $statement->fetchAll();
+		return ($res);
 	}
 }
 ?>

@@ -67,10 +67,7 @@
 
 #download {
 	position: absolute;
-	top: 420px;
-	right: 225px;
+	margin: -335px 945px;
+	font-size: 110%;
 }
 
-#overlay {
-	display: none;
-}

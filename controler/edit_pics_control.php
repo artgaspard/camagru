@@ -3,6 +3,7 @@ if (!isset($_SESSION)) {
 	session_start();
 }
 require('../model/image.class.php');
+require('../config/database.php');
 
 $image = $_POST['image_canvas'];
 $image_incrust = $POST['image_incrust'];
@@ -36,10 +37,17 @@ $src_y = 0;
 $res = imagecopyresampled($first, $second, $dst_x, $dst_y, $src_x, $src_y, $second_width, $second_height, $first_width, $first_height);
 imagepng($first, $filename);
 
-$data = array('user_login' => $user_login, 'image_name' => $file);
+try {
+	$db = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
+	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+	$sql = "USE camagrudb";
+	$db->exec($sql);
 
-$image = new Image($data);
-if ($image->imageDB() == false)
-	echo 'image insertion failed ';
-
+	$data = array('user_login' => $user_login, 'image_name' => $file);
+	$image = new Image($data);
+	$image->imageDB($db);
+}
+catch(PDOException $e) {
+	echo 'image insertion fail '.$e->getMessage();
+}
 ?>

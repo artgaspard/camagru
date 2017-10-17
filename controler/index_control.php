@@ -31,13 +31,13 @@ if (isset($_POST['submit']))
 							echo "<meta http-equiv='refresh' content='0'>";
 						}
 						else
-							echo "Your account isn't activated, please check your mailbox and click on the confirmation link";
+							echo "<p style='text-align:center;font-size:130%;'>Your account isn't activated, please check your mailbox and click on the confirmation link</p>";
 					}
 					else
-						echo "Wrong password";
+						echo "<p style='text-align:center;font-size:130%;'>Wrong password</p>";
 				}
 				else
-					echo "This username doesn't exist";
+					echo "<p style='text-align:center;font-size:130%;'>This username doesn't exist</p>";
 			}
 			catch(PDOException $e) {
 				echo "index_control - login failed " . $e->getMessage();
@@ -47,7 +47,7 @@ if (isset($_POST['submit']))
 			echo "You must enter a login and a password";
 	}
 	else
-		echo "You are already logged in";
+		echo "<p style='text-align:center;font-size:130%;'>You are already logged in</p>";
 }
 
 else if (isset($_POST['newpw']))
@@ -72,16 +72,16 @@ else if (isset($_POST['newpw']))
 				$url = "http://".$_SERVER['HTTP_HOST']."/camagru/view/reset_password.php".'?login='.urlencode($login).'&crypt='.urlencode($crypt);
 				$msg = "Clic on the following link to change your Camagru password: ".$url;
 				mail($email, 'Change your Camagru password', $msg, "From: noreply@camagru.fr");
-				echo "A link has been sent to your email address. ";
+				echo "<p style='text-align:center;font-size:130%;'>A link has been sent to your email address.</p>";
 			}
 			else
-				echo "Unknown email address";
+				echo "<p style='text-align:center;font-size:130%;'>Unknown email address</p>";
 		}
 		catch(PDOException $e) {
 			echo "index_control - new password failed " . $e->getMessage();
 		}
 	}
 	else
-		echo "You must enter an email address";
+		echo "<p style='text-align:center;font-size:130%;'>You must enter an email address</p>";
 }
 ?>
