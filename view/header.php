@@ -1,5 +1,6 @@
 <div class="header">
 <h2><a style="color:white" href="../index.php" title="Go back to homepage">HOME</a></h2>
+<h2><a style="color:white;float:left;margin-left:125px;margin-top:-48px;" href="../view/gallery.php" title="Go to gallery">GALLERY</a></h2>
 <?php
 if ($_SESSION['connect'] == 1)
 {

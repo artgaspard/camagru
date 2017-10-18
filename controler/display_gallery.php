@@ -11,19 +11,19 @@ try {
 
 	$data = array('user_login' => $user_login);
 	$image = new Image($data);
-	$pics = $image->userPics($db);
-		
-	echo '<table>';
+	$pics = $image->allPics($db);
+
+	echo '<table><tr><th>Pictures</th><th>User</th></th>';
 	foreach ($pics as $name)
 	{
 		echo '<tr>';
-		echo "<td><img src='../data/".$name['image_name']."' onclick='del_small(this)'/></td>";
+		echo "<td><img src='../data/".$name['image_name']."'/></td>";
+		echo "<td>".$name['user_login']."</td>";
 		echo '</tr>';
 	}
 	echo '</table>';
 }
 catch(PDOException $e) {
-	echo 'pics display fail '.$e->getMessage();
+	echo 'all pics display fail '.$e->getMessage();
 }
 ?>
-

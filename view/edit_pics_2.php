@@ -23,7 +23,7 @@ include("header.php");
 		<button id='snap'>Take picture</button>
 		</br>
 		<div class="canvas">
-			<p id="pics_title">My pictures:</p>
+			<p id="pics_title">My_pictures:</p>
 			<canvas id='canvas' width='320' height='240' style='border: 1px solid #333;'></canvas>
 		</div>
 		</br>
@@ -39,6 +39,8 @@ include("header.php");
 			<img id="orange2" src="../filters/orange_frame.png" width="640px" height="480px" style="margin: -615px 60px;"></img>
 		</div>
 		<button id='download'>Download</button>
+	<div id='table'>
+	</div>
 <script type="text/javascript">
 
 //dispaly webcam
@@ -60,6 +62,8 @@ function videoError(e) {
 
 //take picture
 var canvas = document.getElementById('canvas');
+canvas.style.visibility = 'hidden';
+
 var context = canvas.getContext('2d');
 var video = document.getElementById('videoElement');  
 document.getElementById('snap').addEventListener('click', takePicture, true);
@@ -100,11 +104,13 @@ function takePicture () {
 	var image_final = 'image_canvas='+image_canvas+'&image_incrust='+incrust.src;
 	console.log(image_final);
 	xhr.send(image_final);
+location.reload();
+}
 
+/*
 //show download button
 	dlButton.addEventListener('click', dlPhoto, true);
 	dlButton.style.visibility = 'visible';
-}
 
 //download picture
 function dlPhoto () {
@@ -112,6 +118,7 @@ function dlPhoto () {
 	data = data.replace('image/png', 'image/octet-stream');
 	document.location.href = data;
 }
+*/
 
 //select filter
 var metal = document.getElementById('metal');
@@ -153,16 +160,34 @@ orange.addEventListener('click', function () {
 	}
 });
 
+//display small pictures
+var xhr = new XMLHttpRequest();
+xhr.open('POST', '../controler/display_edit_pics.php', true);
+xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+xhr.send();
+xhr.onreadystatechange = function() {
+	if (this.readyState == 4 && (this.status == 200 || this.status == 0)) {
+		console.log(this.responseText);
+		document.getElementById('table').innerHTML = this.responseText;
+	}
+};
+
+//delete small pictures
+function del_small (picture) {
+	if (confirm('Do you want to delete this picture ?')) {
+		var xhr = new XMLHttpRequest();
+		xhr.open('POST', '../controler/delete_pics.php', true);
+		xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+		xhr.onreadystatechange = function() {
+			if (this.readyState == 4 && (this.status == 200 || this.status == 0)) {
+				console.log(this.responseText);
+			}
+		}
+		var image_name = 'image_name='+picture.src;
+		xhr.send(image_name);
+	}
+location.reload();
+};
 </script>
-</br>
-</br>
-</br>
-</br>
-</br>
-</br>
-</br>
-<?php
-include('../controler/display_edit_pics.php');
-?>
 </body>
 </html>

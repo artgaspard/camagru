@@ -40,5 +40,29 @@ class Image
 		$res = $statement->fetchAll();
 		return ($res);
 	}
+
+	public function deletePics($db)
+	{
+		$user_login = $this->user_login;
+		$image_name = $this->image_name;
+
+		$statement = $db->prepare("DELETE FROM Images WHERE user_login = :user_login AND image_name = :image_name");
+		$statement->bindParam(':user_login', $user_login);
+		$statement->bindParam(':image_name', $image_name);
+		$statement->execute();
+	}
+
+	public function allPics($db)
+	{
+		$user_login = $this->user_login;
+		$image_name = $this->image_name;
+
+		$statement = $db->prepare("SELECT user_login, image_name FROM Images ORDER BY date DESC");
+		$statement->bindParam(':user_login', $user_login);
+		$statement->bindParam(':image_name', $image_name);
+		$statement->execute();
+		$res = $statement->fetchAll();
+		return ($res);
+	}
 }
 ?>
