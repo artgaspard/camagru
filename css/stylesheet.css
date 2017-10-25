@@ -43,19 +43,19 @@
 
 #metal {
 	position: absolute;
-	top: 750px;
+	top: 780px;
 	left: 60px;
 }
 
 #orange {
 	position: absolute;
-	top: 750px;
+	top: 780px;
 	left: 230px;
 }
 
 #filters_title {
 	position: absolute;
-	top: 685px;
+	top: 720px;
 	left: 270px;
 	font-size: 130%;
 }
@@ -63,6 +63,7 @@
 .picture_fil {
 	position: absolute;
 	margin: 560px 0px;;
+	z-index: 1;
 }
 
 #download {
@@ -73,4 +74,16 @@
 
 #table {
 	margin: -20px 830px;
+}
+
+#upload {
+	position: absolute;
+	top: 700px;
+	left: 150px;
+}
+
+#imgselect {
+	position: absolute;
+	margin: 0px 60px;
+	z-index: 0;
 }

@@ -26,6 +26,7 @@ include("header.php");
 			<p id="pics_title">My_pictures:</p>
 			<canvas id='canvas' width='320' height='240' style='border: 1px solid #333;'></canvas>
 		</div>
+		<img id='imgselect' src='' width='640' height='480' style='display:none'></img>
 		</br>
 		<div class="filters">
 			<p id="filters_title">Add a filter to your picture:</p>
@@ -35,12 +36,18 @@ include("header.php");
 			<img id="orange" src="../filters/orange_frame.png" width="160px" height="120px"></img>
 		</div>
 		<div class="picture_fil">
-			<img id="metal2" src="../filters/metal_frame.png" width="640px" height="480px" style="margin: -615px 60px; z-index:1"></img>
+			<img id="metal2" src="../filters/metal_frame.png" width="640px" height="480px" style="margin: -615px 60px;"></img>
 			<img id="orange2" src="../filters/orange_frame.png" width="640px" height="480px" style="margin: -615px 60px;"></img>
 		</div>
 		<button id='download'>Download</button>
 	<div id='table'>
 	</div>
+<div id="upload">
+<form action="" method="post" enctype="multipart/form-data">
+    Or select an image to upload (.png only):
+    <input type="file" name="fileToUpload" id="fileToUpload">
+</form>
+</div>
 <script type="text/javascript">
 
 //dispaly webcam
@@ -62,19 +69,40 @@ function videoError(e) {
 
 //take picture
 var canvas = document.getElementById('canvas');
-canvas.style.visibility = 'hidden';
 
 var context = canvas.getContext('2d');
 var video = document.getElementById('videoElement');  
 document.getElementById('snap').addEventListener('click', takePicture, true);
 
-var dlButton = document.getElementById('download');
-dlButton.style.visibility = 'hidden';
+//var dlButton = document.getElementById('download');
+//dlButton.style.visibility = 'hidden';
+
+var imgselect = document.getElementById('imgselect');
+var sel = document.getElementById('fileToUpload');
+var fr;
+var imgupload = 0;
+sel.addEventListener('change', function(e) {
+	var f = sel.files[0];
+	fr = new FileReader();
+	fr.onload = receivedData;
+	fr.readAsDataURL(f);
+	imgupload = 1;
+	imgselect.style.display = 'initial';
+});
+
+function receivedData() {
+	imgselect.src = fr.result;
+}
 
 function takePicture () {
 	context.clearRect(0, 0, 320, 240);
 	if (select == 1 || select == 2) {
+		if (imgupload == 1) {
+			context.drawImage(imgselect, 0, 0, 320, 240);
+		}
+		else {
 		context.drawImage(video, 0, 0, 320, 240);
+		}
 		if (select == 1) {
 			context.drawImage(metal, 0, 0, 320, 240);
 		}

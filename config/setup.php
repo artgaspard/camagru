@@ -1,5 +1,4 @@
 <?php
-
 require("database.php");
 
 try {
@@ -25,6 +24,16 @@ try {
 		user_login VARCHAR(60) NOT NULL,
 		image_name VARCHAR(255) NOT NULL,
 		date datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+		PRIMARY KEY (id)
+		)";
+	$db->exec($sql);
+
+	$sql = "CREATE TABLE IF NOT EXISTS Likes (
+		id INT AUTO_INCREMENT NOT NULL, 
+		image_id INT NOT NULL, 
+		user_login VARCHAR(60) NOT NULL, 
+		date datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+		CONSTRAINT user_like UNIQUE (image_id, user_login),
 		PRIMARY KEY (id)
 		)";
 	$db->exec($sql);

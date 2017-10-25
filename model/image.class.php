@@ -1,15 +1,21 @@
 <?php
-session_start();
+if(!isset($_SESSION))
+	session_start();
 
 class Image
 {
+	public $id;
 	public $user_login;
 	public $image_name;
+	public $image;
+	public $image_type;
 
 	public function __construct($data)
 	{
 		if(is_array($data))
 		{
+			if(isset($data['id']))
+				$this->id = $data['id'];
 			if(isset($data['user_login']))
 				$this->user_login = $data['user_login'];
 			if(isset($data['image_name']))
@@ -27,7 +33,7 @@ class Image
 		$statement->bindParam(':image_name', $image_name);
 		$statement->execute();
 	
-		echo "Picture saved";
+	//	echo "Picture saved";
 	}
 
 	public function userPics($db)
@@ -63,6 +69,24 @@ class Image
 		$statement->execute();
 		$res = $statement->fetchAll();
 		return ($res);
+	}
+
+	public function totalPics($db)
+	{
+		$statement = 'SELECT count(*) AS total FROM Images';
+		$total = $db->query($statement)->fetchColumn();
+		return($total); 
+	}
+
+	public function pagePics($db, $first_entry, $pics_per_page)
+	{
+		$statement = $db->prepare("SELECT id, user_login, image_name FROM Images ORDER BY date DESC LIMIT :first_entry, :pics_per_page");
+		$statement->bindParam(':first_entry', $first_entry, PDO::PARAM_INT);
+		$statement->bindParam(':pics_per_page', $pics_per_page, PDO::PARAM_INT);
+		$statement->execute();
+		$res = $statement->fetchAll();
+		$statement->closeCursor();
+		return($res);
 	}
 }
 ?>
