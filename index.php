@@ -23,6 +23,7 @@ include("view/header_index.php");
 <?php
 if ($_SESSION['connect'] == 1) {
 	$link = "view/edit_pics_2.php";
+	$message = "<p style='text-align:center;font-size:120%;'></p>";
 }
 else {
 	$link = "index.php";

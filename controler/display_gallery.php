@@ -44,27 +44,35 @@ try {
 	echo '<table><tr><th>Pictures</th><th>User</th><th>Likes</th></tr>';
 	foreach ($pics as $name)
 	{
+		$data = array('user_login' => $user_login, 'image_id' => $name['id']);
+		$like = new Like($data);
+
 		echo '<tr>';
-		echo "<td><img src='../data/".$name['image_name']."'/></td>";
+		echo "<td><img src='../data/".$name['image_name']."' width=480px height=360px/></td>";
 		echo "<td>".$name['user_login']."</td>";
+		echo '<td>';
+		$nb_likes = $like->allLikes($db);
+		echo $nb_likes;
+		echo '</td>';
 		echo '</tr>';
 		echo '<tr>';
 		echo '<td>';
-		$data = array('user_login' => $user_login, 'image_id' => $name['id']);
-		$like = new Like($data);
-	$check = $like->check($db);
-	echo ('check ='.$check);
-		if ($like->check($db))
-			echo "<button id='like_button' onclick=''>Unlike</button>";
-		else
-			echo "<button id='like_button' onclick='like(this,".$name['id'].")'>Like</button>";
+		if($_SESSION['connect'] == 1) {
+			$check = $like->check($db);
+			if ($like->check($db))
+				echo "<button id='like_button' onclick='unlike(this,".$name['id'].")'>Unlike</button>";
+			else
+				echo "<button id='like_button' onclick='like(this,".$name['id'].")'>Like</button>";
+
+			echo "<form action='' method='POST'>Add comment: </br><textarea rows='5' cols='50'></textarea></form>";
+		}
 	}
-		echo '</tr>';
-		echo '</td>';
+	echo '</tr>';
+	echo '</td>';
 	echo '</table>';
 }
 catch(PDOException $e) {
 	echo 'all pics display fail '.$e->getMessage();
 }
-}
+};
 ?>

@@ -2,12 +2,11 @@
 require("../config/database.php");
 require("../model/user.class.php");
 
-$login = trim($_POST['login']);
-$password = trim($_POST['password']);
-$email = trim($_POST['email']);
-
 if (!(empty($login)) || !(empty($password)) || !(empty($email))) 
 {
+	$login = trim($_POST['login']);
+	$password = trim($_POST['password']);
+	$email = trim($_POST['email']);
 	try
 	{
 		$db = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);

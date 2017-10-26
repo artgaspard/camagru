@@ -13,19 +13,19 @@ try {
 
 	$data = array('image_id' => $image_id, 'user_login' => $user_login);
 	$like = new Like($data);
-	if (!$like->check($db))
+	if ($like->check($db))
 	{
-		if (!$like->create($db))
+		if (!$like->unlike($db))
 		{
-			echo 'like insertion failed';
+			echo 'unlike failed';
 			return;
 		}
 	}
 	else
-		echo 'like insertion success !';
+		echo 'unlike success';
 	return;
 }
 catch(PDOException $e) {
-	echo 'like db failed '.$e->getMessage();
+	echo 'unlike db failed '.$e->getMessage();
 }
 ?>

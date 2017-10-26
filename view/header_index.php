@@ -20,7 +20,6 @@ if ($_SESSION['connect'] == 1)
 	if (isset($_POST['disconnect']))
 	{
 		$_SESSION['connect'] = 0;
-		unset($_SESSION['connect']);
 		echo "<meta http-equiv='refresh' content='0'>";
 	}
 }

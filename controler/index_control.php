@@ -1,11 +1,10 @@
 <?php
 require("model/user.class.php");
 
-$login = trim($_POST['login']);
-$password = trim($_POST['password']);
-
 if (isset($_POST['submit']))
 {
+	$login = trim($_POST['login']);
+	$password = trim($_POST['password']);
 	if ($_SESSION['connect'] == 0)
 	{
 		if (!(empty($login)) && !(empty($password)))
