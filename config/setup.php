@@ -37,6 +37,16 @@ try {
 		PRIMARY KEY (id)
 		)";
 	$db->exec($sql);
+
+	$sql = "CREATE TABLE IF NOT EXISTS Comments (
+		id INT AUTO_INCREMENT NOT NULL,
+		comment VARCHAR(200) NOT NULL,
+		user_login VARCHAR(60) NOT NULL,
+		image_id INT NOT NULL,
+		date datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+		PRIMARY KEY (id)
+		)";
+	$db->exec($sql);		
 }
 
 catch(PDOException $e) {

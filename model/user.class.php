@@ -87,5 +87,23 @@ class User
 		$this->crypt = $res['crypt'];
 		$this->status = $res['status'];
 	}
+
+	public function com_login($db, $image_id)
+	{
+		$statement = $db->prepare("SELECT login FROM Users u INNER JOIN Images i ON i.user_login=u.login WHERE i.id=:image_id");
+		$statement->bindParam(':image_id', $image_id);
+		$statement->execute();
+		$res = $statement->fetchAll();
+		return ($res[0]['login']);
+	}
+
+	public function com_email($db, $image_id)
+	{
+		$statement = $db->prepare("SELECT email FROM Users u INNER JOIN Images i ON i.user_login=u.login WHERE i.id=:image_id");
+		$statement->bindParam(':image_id', $image_id);
+		$statement->execute();
+		$res = $statement->fetchAll();
+		return ($res[0]['email']);
+	}
 }
 ?>

@@ -48,6 +48,28 @@ function unlike(pic, image_id) {
 		xhr.send(id);
 	}
 };
+
+function add_comment(pic, image_id) {
+	if (pic)
+	{
+		var comm = prompt('Enter a comment:');
+		if (comm)
+		{
+			console.log('comm != null');
+			var xhr = new XMLHttpRequest();
+			xhr.open('POST', '../controler/add_comment.php', true);
+			xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+			xhr.onreadystatechange = function() {
+				if (this.readyState == 4 && (this.status == 200)) {
+					console.log(this.responseText);
+	//				window.location.pathname = 'camagru/view/gallery.php';
+				}
+			};
+			var res = 'image_id='+image_id+'&comment='+comm;
+			xhr.send(res);
+		}
+	}
+};
 </script>
 </body>
 </html>

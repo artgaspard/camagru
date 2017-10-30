@@ -6,6 +6,7 @@ function display_gallery() {
 
 require('../model/image.class.php');
 require('../model/like.class.php');
+require('../model/comment.class.php');
 require('../config/database.php');
 
 $user_login = $_SESSION['login'];
@@ -64,11 +65,22 @@ try {
 			else
 				echo "<button id='like_button' onclick='like(this,".$name['id'].")'>Like</button>";
 
-			echo "<form action='' method='POST'>Add comment: </br><textarea rows='5' cols='50'></textarea></form>";
+			echo "<button onclick='add_comment(this,".$name['id'].")'>Add comment</button>";
 		}
+		echo '</tr>';
+		echo '</td>';
+		echo '<tr>';
+		echo '<td>';
+		$date = array('image_id' => $name['id']);
+		$comment = new Comment($data);
+		$res_com = $comment->image_comment($db);
+		foreach ($res_com as $com)
+		{
+			echo "<li>".$com['user_login']." commented: ".$com['comment']."</li>";
+		}
+		echo '</tr>';
+		echo '</td>';
 	}
-	echo '</tr>';
-	echo '</td>';
 	echo '</table>';
 }
 catch(PDOException $e) {
