@@ -42,6 +42,7 @@ try {
 	$first_entry = $page * $pics_per_page-$pics_per_page;
 	$pics = $image->pagePics($db, $first_entry, $pics_per_page);
 
+	echo '<div style="overflow-x:auto;">';
 	echo '<table><tr><th>Pictures</th><th>User</th><th>Likes</th></tr>';
 	foreach ($pics as $name)
 	{
@@ -65,23 +66,25 @@ try {
 			else
 				echo "<button id='like_button' onclick='like(this,".$name['id'].")'>Like</button>";
 
-			echo "<button onclick='add_comment(this,".$name['id'].")'>Add comment</button>";
+			echo "<button id='comment_button' onclick='add_comment(this,".$name['id'].")'>Add comment</button>";
 		}
 		echo '</tr>';
 		echo '</td>';
 		echo '<tr>';
 		echo '<td>';
-		$date = array('image_id' => $name['id']);
+		$data = array('image_id' => $name['id']);
 		$comment = new Comment($data);
 		$res_com = $comment->image_comment($db);
 		foreach ($res_com as $com)
 		{
 			echo "<li>".$com['user_login']." commented: ".$com['comment']."</li>";
 		}
+		echo '</br>';
 		echo '</tr>';
 		echo '</td>';
 	}
 	echo '</table>';
+	echo '</div>';
 }
 catch(PDOException $e) {
 	echo 'all pics display fail '.$e->getMessage();

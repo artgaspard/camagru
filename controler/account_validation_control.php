@@ -20,7 +20,7 @@ if (!(empty($_GET['login'])) || !(empty($_GET['crypt'])))
 			$status = $row['status'];
 		}
 		if ($status == 1)
-			echo "Account already activated";
+			echo "<p style='text-align:center;font-size:130%;'>Account already activated</p>";
 		else
 		{
 			if ($crypt == $cryptdb)
@@ -28,10 +28,10 @@ if (!(empty($_GET['login'])) || !(empty($_GET['crypt'])))
 				$statement = $db->prepare("UPDATE Users SET status = 1 WHERE login = :login");
 				$statement->bindValue(':login', $login, PDO::PARAM_STR);
 				$statement->execute();
-				echo "Congratulations, your account has been activated :) ";
+				echo "<p style='text-align:center;font-size:130%;'>Congratulations, your account has been activated :)</p>";
 			}
 			else
-				echo "Your account can't be activated (crypt missmatch)";
+				echo "<p style='text-align:center;font-size:130%;'>Your account can't be activated (crypt missmatch)</p>";
 		}
 	}
 

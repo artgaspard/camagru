@@ -25,10 +25,10 @@ if (isset($_POST['submit']))
 				$statement->bindValue(':login', $login);
 				$statement->bindValue('password', $password);
 				$statement->execute();
-				echo "Your password has been successfully changed";
+				echo "<p style='text-align:center;font-size:130%;'>Your password has been successfully changed</p>";
 			}
 			else
-				echo "Can't change your password (crypt missmatch)";
+				echo "<p style='text-align:center;font-size:130%;'>Can't change your password (crypt missmatch)</p>";
 		}
 		catch(PDOException $e) {
 			echo "reset_password_control : reset password fail " . $e->getMessage();

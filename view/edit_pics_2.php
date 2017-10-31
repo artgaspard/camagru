@@ -23,23 +23,25 @@ include("header.php");
 		<button id='snap'>Take picture</button>
 		</br>
 		<div class="canvas">
-			<p id="pics_title">My_pictures:</p>
-			<canvas id='canvas' width='320' height='240' style='border: 1px solid #333;'></canvas>
+			<canvas id='canvas' width='320' height='240' style='display:none border: 1px solid #333;'></canvas>
 		</div>
 		<img id='imgselect' src='' width='640' height='480' style='display:none'></img>
 		</br>
 		<div class="filters">
 			<p id="filters_title">Add a filter to your picture:</p>
-			<img id="metal" src="../filters/metal_frame.png" width="160px" height="120px"></img>
+			<img id="metal" src="../filters/matrix.png" width="160px" height="120px"></img>
 			</br>
 			</br>
-			<img id="orange" src="../filters/orange_frame.png" width="160px" height="120px"></img>
+			<img id="orange" src="../filters/dolphin.png" width="160px" height="120px"></img>
+			</br>
+			<img id="filter3" src="../filters/ewok.png" width="160px" height="120px"></img>
+			</br>
+			<img id="filter4" src="../filters/beard.png" width="160px" height="120px"></img>
 		</div>
-		<div class="picture_fil">
-			<img id="metal2" src="../filters/metal_frame.png" width="640px" height="480px" style="margin: -615px 60px;"></img>
-			<img id="orange2" src="../filters/orange_frame.png" width="640px" height="480px" style="margin: -615px 60px;"></img>
-		</div>
-		<button id='download'>Download</button>
+			<img id="metal2" src="../filters/matrix.png" width="640px" height="480px" style="position:absolute;margin:-868px 60px;"></img>
+			<img id="orange2" src="../filters/dolphin.png" width="640px" height="480px" style="position:absolute;margin:-868px 60px;"></img>
+			<img id="filter32" src="../filters/ewok.png" width="640px" height="480px" style="position:absolute;margin:-868px 60px;"></img>
+			<img id="filter42" src="../filters/beard.png" width="640px" height="480px" style="position:absolute;margin:-868px 60px;"></img>
 	<div id='table'>
 	</div>
 <div id="upload">
@@ -74,9 +76,6 @@ var context = canvas.getContext('2d');
 var video = document.getElementById('videoElement');  
 document.getElementById('snap').addEventListener('click', takePicture, true);
 
-//var dlButton = document.getElementById('download');
-//dlButton.style.visibility = 'hidden';
-
 var imgselect = document.getElementById('imgselect');
 var sel = document.getElementById('fileToUpload');
 var fr;
@@ -96,7 +95,7 @@ function receivedData() {
 
 function takePicture () {
 	context.clearRect(0, 0, 320, 240);
-	if (select == 1 || select == 2) {
+	if (select == 1 || select == 2 || select == 3 || select == 4) {
 		if (imgupload == 1) {
 			context.drawImage(imgselect, 0, 0, 320, 240);
 		}
@@ -109,6 +108,12 @@ function takePicture () {
 		else if (select == 2) {
 			context.drawImage(orange, 0, 0, 320, 240);
 		}
+		else if (select == 3) {
+			context.drawImage(filter3, 0, 0, 320, 240);
+		}
+		else if (select == 4) {
+			context.drawImage(filter4, 0, 0, 320, 240);
+		}
 	}
 	else {
 		alert('You must select a filter before taking a picture :)');
@@ -119,6 +124,10 @@ function takePicture () {
 		var incrust = document.getElementById('metal');
 	else if (select == 2)
 		var incrust = document.getElementById('orange');
+	else if (select == 3)
+		var incrust = document.getElementById('filter3');
+	else if (select == 4)
+		var incrust = document.getElementById('filter4');
 
 	var image_canvas = canvas.toDataURL('image/png');
 	var xhr = new XMLHttpRequest();
@@ -135,28 +144,21 @@ function takePicture () {
 location.reload();
 }
 
-/*
-//show download button
-	dlButton.addEventListener('click', dlPhoto, true);
-	dlButton.style.visibility = 'visible';
-
-//download picture
-function dlPhoto () {
-	var data = canvas.toDataURL('image/png');
-	data = data.replace('image/png', 'image/octet-stream');
-	document.location.href = data;
-}
-*/
-
 //select filter
 var metal = document.getElementById('metal');
 var orange = document.getElementById('orange');
+var filter3 = document.getElementById('filter3');
+var filter4 = document.getElementById('filter4');
 var select = 0;
 
 var metal2 = document.getElementById('metal2');
 var orange2 = document.getElementById('orange2');
+var filter32 = document.getElementById('filter32');
+var filter42 = document.getElementById('filter42');
 metal2.style.visibility = 'hidden';
 orange2.style.visibility = 'hidden';
+filter32.style.visibility = 'hidden';
+filter42.style.visibility = 'hidden';
 
 metal.addEventListener('click', function () {
 	if (select == 0) {
@@ -165,6 +167,14 @@ metal.addEventListener('click', function () {
 	}
 	else if (select == 2) {
 		orange2.style.visibility = 'hidden';
+		select = 0;
+	}
+	else if (select == 3) {
+		filter32.style.visibility = 'hidden';
+		select = 0;
+	}
+	else if (select == 4) {
+		filter42.style.visibility = 'hidden';
 		select = 0;
 	}
 	else {
@@ -182,8 +192,62 @@ orange.addEventListener('click', function () {
 		metal2.style.visibility = 'hidden';
 		select = 0;
 	}
+	else if (select == 3) {
+		filter32.style.visibility = 'hidden';
+		select = 0;
+	}
+	else if (select == 4) {
+		filter42.style.visibility = 'hidden';
+		select = 0;
+	}
 	else {
 		orange2.style.visibility = 'hidden';
+		select = 0;
+	}
+});
+
+filter3.addEventListener('click', function () {
+	if (select == 0) {
+		filter32.style.visibility = 'visible';
+		select = 3;
+	}
+	else if (select == 1) {
+		metal2.style.visibility = 'hidden';
+		select = 0;
+	}
+	else if (select == 2) {
+		orange2.style.visibility = 'hidden';
+		select == 0;
+	}
+	else if (select == 4) {
+		filter42.style.visibility = 'hidden';
+		select = 0;
+	}
+	else {
+		filter32.style.visibility = 'hidden';
+		select = 0;
+	}
+});
+
+filter4.addEventListener('click', function () {
+	if (select == 0) {
+		filter42.style.visibility = 'visible';
+		select = 4;
+	}
+	else if (select == 1) {
+		metal2.style.visibility = 'hidden';
+		select = 0;
+	}
+	else if (select == 2) {
+		orange2.style.visibility = 'hidden';
+		select == 0;
+	}
+	else if (select == 3) {
+		filter32.style.visibility = 'hidden';
+		select = 0;
+	}
+	else {
+		filter42.style.visibility = 'hidden';
 		select = 0;
 	}
 });

@@ -21,8 +21,8 @@ try {
 		$user = new User($data);
 		$com_login = $user->com_login($db, $image_id);
 		$com_email = $user->com_email($db, $image_id);
-		$msg = ''.$com_login.' left a new comment on your picture : '.$comment;
-		mail($com_email, 'You got a new comment on your picture !', $msg);
+		$msg = ''.$com_login.' left a new comment on one of your Camagru picture : '.$comment;
+		mail($com_email, 'You\'ve got a new comment on your picture !', $msg);
 	}
 	else
 		echo 'comment creation failed';

@@ -12,7 +12,8 @@ try {
 	$data = array('user_login' => $user_login);
 	$image = new Image($data);
 	$pics = $image->userPics($db);
-		
+
+	echo '<p style="text-align:center;font-size:130%;">My pictures</p>';
 	echo '<table>';
 	foreach ($pics as $name)
 	{

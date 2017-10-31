@@ -8,7 +8,7 @@ require('../controler/display_gallery.php');
 	<link rel="stylesheet" type="text/css" href="../css/stylesheet.css">
 </head>
 <body>
-	<div id='table_gallery'>
+	<div id='table_gallery' align='center'>
 <?php
 display_gallery();
 ?>
@@ -62,7 +62,7 @@ function add_comment(pic, image_id) {
 			xhr.onreadystatechange = function() {
 				if (this.readyState == 4 && (this.status == 200)) {
 					console.log(this.responseText);
-	//				window.location.pathname = 'camagru/view/gallery.php';
+					window.location.pathname = 'camagru/view/gallery.php';
 				}
 			};
 			var res = 'image_id='+image_id+'&comment='+comm;
