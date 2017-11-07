@@ -1,5 +1,6 @@
 <?php
-session_start();
+if (!isset($_SESSION))
+	session_start();
 include('../config/database.php');
 include('../model/like.class.php');
 

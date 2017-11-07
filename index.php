@@ -1,6 +1,8 @@
 <?php
 if (!isset($_SESSION))
+{
 	session_start();
+}
 ?>
 <html>
 <head>
@@ -16,7 +18,6 @@ include("view/header_index.php");
 	<div id="title">
 	<h1>WELCOME TO CAMAGRU</h1>
 	</div>
-	</br>
 	</br>
 	<div id="use_button">
 	<button type='button'>
@@ -35,7 +36,7 @@ else {
 <?php
 echo "</br></br><p style='text-align:center'>$message</p>";
 ?>
-		</br>
+	</br>
 	<div class="body">
 		<form action="index.php" method="POST">
 		<input type="text" name="login" placeholder="Login" value="" required/>
@@ -57,9 +58,9 @@ echo "</br></br><p style='text-align:center'>$message</p>";
 		</br>
 		</form>
 	</div>
-	</body>
-	<footer>
-	</footer>
+</body>
+<footer>
+</footer>
 </html>
 
 <?php

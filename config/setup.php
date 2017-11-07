@@ -50,7 +50,7 @@ try {
 }
 
 catch(PDOException $e) {
-	echo "connection failed " . $e->getMessage();
+	echo "setup - connection failed " . $e->getMessage();
 	die();
 }
 ?>

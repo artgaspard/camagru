@@ -63,6 +63,7 @@
 	left: 570px;
 	border: 1px #000 solid;
 }
+
 #filters_title {
 	position: absolute;
 	top: 720px;
@@ -115,6 +116,5 @@ td {
 
 li {
 	margin: 5 0 0 0;
-	text-align: left;
-	
+	text-align: left;	
 }

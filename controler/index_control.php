@@ -83,4 +83,6 @@ else if (isset($_POST['newpw']))
 	else
 		echo "<p style='text-align:center;font-size:130%;'>You must enter an email address</p>";
 }
+else if (!isset($_SESSION['login']))
+	$_SESSION['login'] = NULL;
 ?>

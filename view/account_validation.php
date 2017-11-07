@@ -13,7 +13,6 @@ include ("header.php");
 	<h2>ACCOUNT STATUS :</h2>
 	</div>
 	</br>
-	</br>
 </body>
 </html>
 

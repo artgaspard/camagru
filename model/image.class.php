@@ -32,8 +32,6 @@ class Image
 		$statement->bindParam(':user_login', $user_login);
 		$statement->bindParam(':image_name', $image_name);
 		$statement->execute();
-	
-	//	echo "Picture saved";
 	}
 
 	public function userPics($db)

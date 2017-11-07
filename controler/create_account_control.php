@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
 				$statement->bindValue('status', $status, PDO::PARAM_INT);
 				$statement->execute();
 
-// changer path url si besoin !
+// change url path if necessary
 
 				$url = "http://".$_SERVER['HTTP_HOST']."/camagru/view/account_validation.php".'?login='.urlencode($login).'&crypt='.urlencode($crypt);
 				$msg = "Clic on the following link to confirm your subscription to Camagru: ".$url;

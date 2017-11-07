@@ -1,11 +1,11 @@
 <?php
+if (!isset($_SESSION))
+	session_start();
 require("../config/database.php");
-
 if (!(empty($_GET['login'])) || !(empty($_GET['crypt'])))
 {
 	$login = trim($_GET['login']);
 	$crypt = trim($_GET['crypt']);
-
 	try
 	{
 		$db = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
@@ -34,7 +34,6 @@ if (!(empty($_GET['login'])) || !(empty($_GET['crypt'])))
 				echo "<p style='text-align:center;font-size:130%;'>Your account can't be activated (crypt missmatch)</p>";
 		}
 	}
-
 	catch(PDOException $e) {
 		echo "validation_control : data matching failed " . $e->getMessge();
 	}

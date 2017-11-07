@@ -1,7 +1,6 @@
 <?php
-if (!isset($_SESSION)) {
+if (!isset($_SESSION))
 	session_start();
-}
 require('../model/image.class.php');
 require('../config/database.php');
 
@@ -30,11 +29,7 @@ $first_height = $first_size[1];
 $second_width = $second_size[0];
 $second_height = $second_size[1];
 
-$dst_x = 0;
-$dst_y = 0;
-$src_x = 0;
-$src_y = 0;
-$res = imagecopyresampled($first, $second, $dst_x, $dst_y, $src_x, $src_y, $second_width, $second_height, $first_width, $first_height);
+$res = imagecopyresampled($first, $second, 0, 0, 0, 0, $second_width, $second_height, $first_width, $first_height);
 imagepng($first, $filename);
 
 try {

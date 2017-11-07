@@ -1,6 +1,8 @@
 <?php
 if (!isset($_SESSION))
+{
 	session_start();
+}
 if ($_SESSION['connect'] == 1) {
 	$link = './view/edit_pics_2.php';
 }

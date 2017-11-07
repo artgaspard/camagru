@@ -1,8 +1,10 @@
 <?php
-session_start();
+if (!isset($_SESSION))
+	session_start();
 if ($_SESSION['connect'] != 1)
 {
-	// changer path si necessaire
+
+// change path if necessary
 	$url = "http://".$_SERVER['HTTP_HOST']."/camagru/index.php";
 	header("Refresh:5, url=$url");
 	echo "You must be logged-in to use Camagru, redirecting to homepage... ";
@@ -12,7 +14,7 @@ include("header.php");
 ?>
 <html>
 <head>
-<link rel="stylesheet" href="../css/stylesheet.css">
+	<link rel="stylesheet" href="../css/stylesheet.css">
 </head>
 <body>
 	<div class="main">
@@ -38,20 +40,20 @@ include("header.php");
 			</br>
 			<img id="filter4" src="../filters/beard.png" width="160px" height="120px"></img>
 		</div>
-			<img id="metal2" src="../filters/matrix.png" width="640px" height="480px" style="position:absolute;margin:-868px 60px;"></img>
-			<img id="orange2" src="../filters/dolphin.png" width="640px" height="480px" style="position:absolute;margin:-868px 60px;"></img>
-			<img id="filter32" src="../filters/ewok.png" width="640px" height="480px" style="position:absolute;margin:-868px 60px;"></img>
-			<img id="filter42" src="../filters/beard.png" width="640px" height="480px" style="position:absolute;margin:-868px 60px;"></img>
-	<div id='table'>
+		<img id="metal2" src="../filters/matrix.png" width="640px" height="480px" style="position:absolute;margin:-868px 60px;"></img>
+		<img id="orange2" src="../filters/dolphin.png" width="640px" height="480px" style="position:absolute;margin:-868px 60px;"></img>
+		<img id="filter32" src="../filters/ewok.png" width="640px" height="480px" style="position:absolute;margin:-868px 60px;"></img>
+		<img id="filter42" src="../filters/beard.png" width="640px" height="480px" style="position:absolute;margin:-868px 60px;"></img>
+		<div id='table'>
+		</div>
+		<div id="upload">
+			<form action="" method="post" enctype="multipart/form-data">
+    			Or select an image to upload:
+    			<input type="file" accept=".jpg,.png" name="fileToUpload" id="fileToUpload">
+			</form>
+		</div>
 	</div>
-<div id="upload">
-<form action="" method="post" enctype="multipart/form-data">
-    Or select an image to upload (.png only):
-    <input type="file" name="fileToUpload" id="fileToUpload">
-</form>
-</div>
 <script type="text/javascript">
-
 //dispaly webcam
 var video = document.querySelector("#videoElement");
 
@@ -117,6 +119,7 @@ function takePicture () {
 	}
 	else {
 		alert('You must select a filter before taking a picture :)');
+		return;
 	}
 
 //save picture on server

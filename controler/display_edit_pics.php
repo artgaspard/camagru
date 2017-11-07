@@ -1,5 +1,6 @@
 <?php
-session_start();
+if (!isset($_SESSION))
+	session_start();
 require('../model/image.class.php');
 require('../config/database.php');
 
